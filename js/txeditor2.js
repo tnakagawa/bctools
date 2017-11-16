@@ -585,6 +585,7 @@ class HDWallets {
         this.passphase = ko.observable("");
         this.mseed = ko.observable("");
         this.ecprv = ko.observable("");
+        this.ecprva = ko.observable("");
         this.ecpub = ko.observable("");
         this.ecaddr = ko.observable("");
         this.ecp2pkh = ko.observable("");
@@ -712,15 +713,18 @@ class HDWallets {
             let p = SECP256K1['G'].multiply(prv);
             let pub = this.serP(p);
             this.ecpub(pub);
+            let prvver = "80";
             let addrver = "00";
-            if (this.ectest()) {
+            if (this.test()) {
+                prvver = "ef";
                 addrver = "6f";
             }
             let pubhash = Crypto.hash160(pub);
+            this.ecprv(this.toHex(prv.toString(16), 32));
+            this.ecprva(Base58.checkEncode(this.ecprv() + "01", prvver));
             this.ecaddr(Base58.checkEncode(pubhash, addrver));
             this.ecp2pkh("76a914" + pubhash + "88ac");
             this.ecp2wpkh("0014" + pubhash);
-            this.ecprv(this.toHex(prv.toString(16), 32));
         }
     }
     addprv() {

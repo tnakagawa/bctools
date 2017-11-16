@@ -714,6 +714,15 @@
                     <td></td>
                 </tr>
                 <tr>
+                    <td class="short right">Private Key:</td>
+                    <td>
+                        <input id="ecprva" type="text" data-bind="value: ecprva" class="hash">
+                    </td>
+                    <td>
+                        <div class="copy" title="copy" data-bind="click: Util.copy.bind('ecprva');"></div>
+                    </td>
+                </tr>
+                <tr>
                     <td class="short right">Public Key:</td>
                     <td>
                         <input id="ecpub" type="text" data-bind="value: ecpub" class="hash">
