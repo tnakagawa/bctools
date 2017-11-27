@@ -72,7 +72,7 @@ class Tab {
 // Transaction
 class Wtx {
     constructor() {
-        this.version = ko.observable("01000000");
+        this.version = ko.observable("02000000");
         this.marker = ko.observable("00");
         this.flag = ko.observable("01");
         this.txins = ko.observableArray();
@@ -154,7 +154,7 @@ class Wtx {
         this.segwit(!this.segwit());
     }
     reset() {
-        this.version("01000000");
+        this.version("02000000");
         this.marker("00");
         this.flag("01");
         this.txins.removeAll();
