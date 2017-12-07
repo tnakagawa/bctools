@@ -496,6 +496,7 @@ class Script {
         this.hex = ko.observable("");
         this.errors = ko.observableArray();
         this.addr = ko.observable("");
+        this.bech32 = ko.observable("");
         this.p2sh = ko.observable("");
         this.p2wsh = ko.observable("");
         this.test = ko.observable(true);
@@ -549,15 +550,22 @@ class Script {
     }
     generate() {
         this.addr("");
+        this.bech32("");
         this.p2sh("");
         this.p2wsh("");
         if (this.hex()) {
             let scripthash = Crypto.hash160(this.hex());
+            let scriptbech32hash = Crypto.sha256(this.hex());
+            console.log(scriptbech32hash);  
             let addrver = "05";
+            let hrp = "bc";
             if (this.test()) {
                 addrver = "c4";
+                hrp = "tb";
             }
             this.addr(Base58.checkEncode(scripthash, addrver));
+            let bech32 = new Bech32();
+            this.bech32(bech32.encode(hrp, 0, scriptbech32hash));
             this.p2sh("a914" + scripthash + "87");
             let md = new KJUR.crypto.MessageDigest({ alg: "sha256", prov: "sjcl" }); // sjcl supports sha256 only
             let sha256 = md.digestHex(this.hex());
@@ -577,6 +585,7 @@ class HDWallets {
         this.prv = ko.observable("");
         this.pub = ko.observable("");
         this.addr = ko.observable("");
+        this.bech32 = ko.observable("");
         this.p2pkh = ko.observable("");
         this.p2wpkh = ko.observable("");
         this.hdwprvcp = ko.observable(false);
@@ -588,6 +597,7 @@ class HDWallets {
         this.ecprva = ko.observable("");
         this.ecpub = ko.observable("");
         this.ecaddr = ko.observable("");
+        this.ecbech32 = ko.observable("");
         this.ecp2pkh = ko.observable("");
         this.ecp2wpkh = ko.observable("");
         this.ectest = ko.observable(true);
@@ -617,6 +627,7 @@ class HDWallets {
         this.prv("");
         this.pub("");
         this.addr("");
+        this.bech32("");
         this.p2pkh("");
         this.p2wpkh("");
         let priver = "0488ade4";
@@ -630,14 +641,18 @@ class HDWallets {
         if (format) {
             let prvver = "80";
             let addrver = "00";
+            let hrp = "bc";
             if (this.test()) {
                 prvver = "ef";
                 addrver = "6f";
+                hrp = "tb";
             }
             this.prv(Base58.checkEncode(format.prv + "01", prvver));
             this.pub(format.pub);
             let pubhash = Crypto.hash160(format.pub);
             this.addr(Base58.checkEncode(pubhash, addrver));
+            let bech32 = new Bech32();
+            this.bech32(bech32.encode(hrp, 0, pubhash));
             this.p2pkh("76a914" + pubhash + "88ac");
             this.p2wpkh("0014" + pubhash);
         }
@@ -702,8 +717,10 @@ class HDWallets {
         }
     }
     multiply() {
+        this.ecprva("");
         this.ecpub("");
         this.ecaddr("");
+        this.ecbech32("");
         this.ecp2pkh("");
         this.ecp2wpkh("");
         let hex = Util.hex(this.ecprv());
@@ -715,14 +732,18 @@ class HDWallets {
             this.ecpub(pub);
             let prvver = "80";
             let addrver = "00";
+            let hrp = "bc";
             if (this.test()) {
                 prvver = "ef";
                 addrver = "6f";
+                hrp = "tb";
             }
             let pubhash = Crypto.hash160(pub);
             this.ecprv(this.toHex(prv.toString(16), 32));
             this.ecprva(Base58.checkEncode(this.ecprv() + "01", prvver));
             this.ecaddr(Base58.checkEncode(pubhash, addrver));
+            let bech32 = new Bech32();
+            this.ecbech32(bech32.encode(hrp, 0, pubhash));
             this.ecp2pkh("76a914" + pubhash + "88ac");
             this.ecp2wpkh("0014" + pubhash);
         }

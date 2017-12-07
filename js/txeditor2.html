@@ -12,6 +12,7 @@
     <script src="./lib/suggest.js"></script>
     <script src="./hdw.js"></script>
     <script src="./mnemonic.js"></script>
+    <script src="./bech32.js"></script>
     <script src="./txeditor2.js"></script>
 </head>
 
@@ -518,6 +519,15 @@
                     </td>
                 </tr>
                 <tr data-toggle="scriptaddress">
+                    <td class="short right">Bech32:</td>
+                    <td>
+                        <input id="scriptbech32" type="text" data-bind="value: bech32" class="hash">
+                    </td>
+                    <td>
+                        <div class="copy" title="copy" data-bind="click: Util.copy.bind('scriptbech32');"></div>
+                    </td>
+                </tr>
+                <tr data-toggle="scriptaddress">
                     <td class="short right">P2SH Script:</td>
                     <td>
                         <input id="scriptp2sh" type="text" data-bind="value: p2sh" class="hash">
@@ -609,6 +619,15 @@
                     </td>
                     <td>
                         <div class="copy" title="copy" data-bind="click: Util.copy.bind('hdwaddr');"></div>
+                    </td>
+                </tr>
+                <tr data-toggle="hdwallets">
+                    <td class="short right">Bech32:</td>
+                    <td>
+                        <input id="hdwbech32" type="text" data-bind="value: bech32" class="hash">
+                    </td>
+                    <td>
+                        <div class="copy" title="copy" data-bind="click: Util.copy.bind('hdwbech32');"></div>
                     </td>
                 </tr>
                 <tr data-toggle="hdwallets">
@@ -738,6 +757,15 @@
                     </td>
                     <td>
                         <div class="copy" title="copy" data-bind="click: Util.copy.bind('ecaddr');"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="short right">Bech32:</td>
+                    <td>
+                        <input id="ecbech32" type="text" data-bind="value: ecbech32" class="hash">
+                    </td>
+                    <td>
+                        <div class="copy" title="copy" data-bind="click: Util.copy.bind('ecbech32');"></div>
                     </td>
                 </tr>
                 <tr>
