@@ -556,7 +556,7 @@ class Script {
         if (this.hex()) {
             let scripthash = Crypto.hash160(this.hex());
             let scriptbech32hash = Crypto.sha256(this.hex());
-            console.log(scriptbech32hash);  
+            console.log(scriptbech32hash);
             let addrver = "05";
             let hrp = "bc";
             if (this.test()) {
@@ -762,12 +762,12 @@ class HDWallets {
         }
     }
     addpub() {
-        this.ecpub3("");    
+        this.ecpub3("");
         let pub1 = this.decompressPoint(this.ecpub1());
         let pub2 = this.decompressPoint(this.ecpub2());
         if (pub1 && pub2) {
             let pub3 = pub1.add(pub2);
-            this.ecpub3(this.serP(pub3));    
+            this.ecpub3(this.serP(pub3));
         }
     }
     toHex(hex, byteSize) {
@@ -899,7 +899,11 @@ class Etc {
         this.hex = ko.observable("");
         this.int = ko.observable("");
         this.le = ko.observable(true);
-        let hides = ["hash256", "sha256", "hex2int", "base58", "config"];
+        this.bech32hrp = ko.observable("");
+        this.bech32ver = ko.observable(0);
+        this.bech32hex = ko.observable("");
+        this.bech32 = ko.observable("");
+        let hides = ["hash256", "sha256", "hex2int", "base58", "bech32"];
         for (let i = 0; i < hides.length; i++) {
             $("[data-toggle='" + hides[i] + "']").hide();
         }
@@ -972,12 +976,44 @@ class Etc {
             this.int((new BigInteger(hex, 16)).toString());
         }
     }
+    bech32Encode() {
+        this.bech32("");
+        let hrp = this.bech32hrp();
+        let ver = parseInt(this.bech32ver(), 10);
+        let hex = Util.hex(this.bech32hex());
+        console.log(hrp, ver, hex);
+        if (hrp && ver != null && hex) {
+            this.bech32ver(ver);
+            let bech32 = new Bech32();
+            this.bech32(bech32.encode(hrp, ver, hex));
+        }
+    }
+    bech32Decode() {
+        this.bech32hrp("");
+        this.bech32ver(0);
+        this.bech32hex("");
+        let bech32addr = this.bech32();
+        if (bech32addr) {
+            let bech32 = new Bech32();
+            let hrp = bech32addr.substring(0, bech32addr.indexOf("1")).toLowerCase();
+            let bech32d = bech32.decode(hrp, bech32addr);
+            if (bech32d) {
+                this.bech32hrp(hrp);
+                this.bech32ver(bech32d.version);
+                this.bech32hex(bech32d.hex);
+            }
+        }
+    }
     toggleSegwit() {
         this.wtx.segwit(!this.wtx.segwit());
     }
     clear(etc) {
         let names = ("" + this).split(",");
         for (let i = 0; i < names.length; i++) {
+            if (names[i] == "bech32ver") {
+                etc[names[i]](0);
+                continue;
+            }
             if (etc[names[i]]) {
                 etc[names[i]]("");
             }
