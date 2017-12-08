@@ -78,7 +78,7 @@ class Wtx {
         this.txins = ko.observableArray();
         this.txouts = ko.observableArray();
         this.lockTime = ko.observable("00000000");
-        this.segwit = ko.observable(false);
+        this.segwit = ko.observable(true);
     }
     set nVersion(value) {
         this.version(Util.n2h(value, 8));
