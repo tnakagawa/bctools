@@ -711,8 +711,9 @@ class HDWallets {
                 childNumber = parseInt(item);
             }
             childNumber += num;
-            if (childNumber >= 0 && childNumber <= 100) {
+            if (childNumber >= 0 && childNumber <= 1000) {
                 this.path(path.substring(0, path.length - item.length) + childNumber + tail);
+                this.generate();
             }
         }
     }
