@@ -734,7 +734,7 @@ class HDWallets {
             let prvver = "80";
             let addrver = "00";
             let hrp = "bc";
-            if (this.test()) {
+            if (this.ectest()) {
                 prvver = "ef";
                 addrver = "6f";
                 hrp = "tb";

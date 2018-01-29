@@ -143,7 +143,7 @@
                     <tr>
                         <td colspan="2">sequence</td>
                         <td>
-                            <input type="number" max=4294967295 data-bind="value: nSequence" class="num" min="0">
+                            <input type="number" max="4294967295" data-bind="value: nSequence" class="num" min="0">
                         </td>
                         <td>
                             <span data-bind="text: sequence"></span>
@@ -320,7 +320,7 @@
                     <td>Signature + Hash Type</td>
                     <td>
                         <textarea id="signall" data-bind="value: signall" rows="5"></textarea>
-                        <div class="copy" title="copy" title="copy" data-bind="click: Util.copy.bind('signall');"></div>
+                        <div class="copy" title="copy" data-bind="click: Util.copy.bind('signall');"></div>
                     </td>
                 </tr>
             </table>
@@ -402,13 +402,11 @@
                             <td>
                                 <span data-bind="text: nLocktime"></span>
                             </td>
-                            </td>
                         </tr>
                         <tr>
                             <td title="sighash type of the signature (4-byte little endian)">nHashType</td>
                             <td>
                                 <span data-bind="text: nHashType"></span>
-                            </td>
                             </td>
                         </tr>
                     </table>
@@ -455,7 +453,7 @@
                             <td>Signature + Hash Type</td>
                             <td>
                                 <textarea id="wsignall" data-bind="value: wsignall" rows="5"></textarea>
-                                <div class="copy" title="copy" title="copy" data-bind="click: Util.copy.bind('wsignall');"></div>
+                                <div class="copy" title="copy" data-bind="click: Util.copy.bind('wsignall');"></div>
                             </td>
                         </tr>
                     </table>
@@ -956,8 +954,8 @@
                 <tr>
                     <td colspan="4">
                         <div class="cap clickable" data-bind="click: Util.toggle.bind('base58c');">BASE58 Check</div>
-                        <button data-bind="click: checkEncode" data-toggle="base58c">Encode (HEX > BASE58Check)</button>
-                        <button data-bind="click: checkDecode" data-toggle="base58c">Decode (BASE58Check > HEX)</button>
+                        <button data-bind="click: checkEncode" data-toggle="base58c">Encode (HEX &gt; BASE58Check)</button>
+                        <button data-bind="click: checkDecode" data-toggle="base58c">Decode (BASE58Check &lt; HEX)</button>
                         <div class="eraser" title="clear" data-toggle="base58c" data-bind="click: clear.bind('base58cver,base58chex,base58c')">
                             <div class="eraserb"></div>
                         </div>
