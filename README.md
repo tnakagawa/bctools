@@ -4,7 +4,8 @@
 
 ## txeditor
 
-[txeditor](https://tnakagawa.github.io/bctools/js/txeditor2.html)
+リポジトリ移動
+[txeditor](https://tnakagawa.github.io/education/btctools/txeditor.html)
 
 ## ライセンス
 
